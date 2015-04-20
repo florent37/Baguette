@@ -5,7 +5,10 @@
     android:layout_height="match_parent">
 
     <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:id="@+id/baguette_layout"
         android:layout_gravity="bottom"
         android:minHeight="80dp"
         android:layout_height="wrap_content"
@@ -13,7 +16,7 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/message"
+            android:id="@+id/baguette_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="@string/baguette_sample"

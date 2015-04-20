@@ -7,12 +7,14 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.IntDef;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
+import java.lang.Override;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.LinkedList;
@@ -22,6 +24,8 @@ import java.util.concurrent.Semaphore;
  * Created by florentchampigny on 19/04/15.
  */
 public class Baguette {
+
+    private static final String TAG = Baguette.class.getSimpleName();
 
     /**
      * @hide
@@ -57,10 +61,19 @@ public class Baguette {
         this.mDuration = duration;
 
         View v = LayoutInflater.from(mContext).inflate(R.layout.baguette_layout, null, false);
-        TextView tv = (TextView) v.findViewById(R.id.message);
+        TextView tv = (TextView) v.findViewById(R.id.baguette_message);
         tv.setText(text);
 
+        View clickableLayout = v.findViewById(R.id.baguette_layout);
+
         mView = v;
+        clickableLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG,"click");
+                doHide();
+            }
+        });
     }
 
     public static Baguette makeText(Context context, CharSequence text, @Duration int duration) {
@@ -73,15 +86,18 @@ public class Baguette {
     }
 
     private static Baguette currentBaguette = null;
+    private static Baguette lastBaguette = null;
     private Baguette nextBaguette = null;
 
     public void show() {
         if(currentBaguette == null) {
             currentBaguette = this;
+            lastBaguette = this;
             doShow();
         }
         else{
-            currentBaguette.nextBaguette = this;
+            lastBaguette.nextBaguette = this;
+            lastBaguette = this;
         }
     }
 
@@ -123,17 +139,22 @@ public class Baguette {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                ((ViewGroup) mView.getParent()).removeView(mView);
-                currentBaguette = nextBaguette;
+                if (mView != null && mView.getParent() != null) {
+                    ((ViewGroup) mView.getParent()).removeView(mView);
+                    currentBaguette = nextBaguette;
 
-                if (currentBaguette != null) {
-                    currentBaguette.doShow();
+                    if (currentBaguette != null) {
+                        currentBaguette.doShow();
+                    } else {
+                        lastBaguette = null;
+                    }
                 }
             }
         }).setDuration(500).start();
     }
 
     private void doShow() {
+        Log.d(TAG,"doShow");
         mHandler.post(mShow);
     }
 
