@@ -1,11 +1,13 @@
-WearMenu
+Baguette
 =======
 
 [![Build Status](https://travis-ci.org/florent37/Baguette.svg)](https://travis-ci.org/florent37/Baguette)
 
-WearMenu is an Android Toast implementation adapted for smartwatch
+Baguette is an Android Toast implementation adapted for SmartWatch
 
 WORK IN PROGRESS
+
+![alt sample](https://raw.githubusercontent.com/florent37/Baguette/master/wear/src/main/res/drawable/baguette_sample_2.png)
 
 Download
 --------
@@ -27,8 +29,24 @@ compile 'com.github.florent37:baguette:1.0.0@aar'
 Usage
 --------
 
-TODO
---------
+```java
+Baguette.makeText(getContext(), "text to display", Baguette.LENGTH_SHORT).show();
+Baguette.makeText(getContext(), R.string.baguette_sample, Baguette.LENGTH_SHORT).show();
+```
+
+![alt sample](https://raw.githubusercontent.com/florent37/Baguette/master/wear/src/main/res/drawable/baguette_sample_2.png)
+
+```java
+Baguette.makeText(getContext(), R.string.baguette_sample, Baguette.LENGTH_SHORT).enableUndo(new Baguette.BaguetteListener() {
+                    @Override
+                    public void onActionClicked() {
+                        Log.d(TAG, "undo");
+                    }
+                }).show();
+```
+
+![alt sample](https://raw.githubusercontent.com/florent37/Baguette/master/wear/src/main/res/drawable/baguette_sample.png)
+
 
 Community
 --------

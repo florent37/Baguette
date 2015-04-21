@@ -2,7 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@android:color/black"
+    >
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +12,7 @@
         android:id="@+id/baguette_layout"
         android:layout_gravity="bottom"
         android:layout_height="90dp"
-        android:background="#3E2723"
+        android:background="@color/baguette_color"
         >
 
         <TextView
@@ -32,7 +34,6 @@
             android:layout_width="50dp"
             android:layout_alignParentRight="true"
             android:visibility="gone"
-            tools:visibility="visible"
             android:background="@drawable/baguette_action_selector"
             android:layout_height="match_parent">
 
