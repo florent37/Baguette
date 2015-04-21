@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Baguette.makeText(MainActivity.this, "Test", Baguette.LENGTH_SHORT).enableUndo(new Baguette.BaguetteListener() {
+                Baguette.makeText(MainActivity.this, R.string.baguette_sample, Baguette.LENGTH_SHORT).enableUndo(new Baguette.BaguetteListener() {
                     @Override
                     public void onActionClicked() {
                         Log.d(TAG, "undo");
