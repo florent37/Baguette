@@ -4,20 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:id="@+id/baguette_layout"
         android:layout_gravity="bottom"
-        android:minHeight="80dp"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:background="#3E2723"
-        android:padding="10dp">
+        >
 
         <TextView
             android:id="@+id/baguette_message"
-            android:layout_width="wrap_content"
+            android:layout_toLeftOf="@+id/baguette_action_layout"
+            android:padding="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="@string/baguette_sample"
             android:textColor="@android:color/white"
@@ -27,6 +27,25 @@
             android:shadowColor="#BB000000"
             android:shadowRadius="2.75" />
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/baguette_action_layout"
+            android:layout_width="50dp"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:background="@drawable/baguette_action_selector"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/baguette_action_icon"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/undo" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
 
 </FrameLayout>

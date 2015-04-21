@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="baguette_color">#3E2723</color>
+    <color name="baguette_action_background">#0FFF</color>
+    <color name="baguette_action_background_hover">#3FFF</color>
+</resources>

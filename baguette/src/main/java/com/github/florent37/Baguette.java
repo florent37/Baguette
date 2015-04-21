@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.IntDef;
@@ -12,13 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.Override;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.LinkedList;
-import java.util.concurrent.Semaphore;
 
 /**
  * Created by florentchampigny on 19/04/15.
@@ -26,6 +25,10 @@ import java.util.concurrent.Semaphore;
 public class Baguette {
 
     private static final String TAG = Baguette.class.getSimpleName();
+
+    public interface BaguetteListener {
+        public void onActionClicked();
+    }
 
     /**
      * @hide
@@ -54,6 +57,8 @@ public class Baguette {
     CharSequence mText;
     int mDuration;
     View mView;
+    View mVActionView;
+    ImageView mVActionImageView;
 
     private Baguette(Context context, CharSequence text, int duration) {
         this.mContext = context;
@@ -70,10 +75,13 @@ public class Baguette {
         clickableLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG,"click");
+                Log.d(TAG, "click");
                 doHide();
             }
         });
+
+        mVActionView = v.findViewById(R.id.baguette_action_layout);
+        mVActionImageView = (ImageView) v.findViewById(R.id.baguette_action_icon);
     }
 
     public static Baguette makeText(Context context, CharSequence text, @Duration int duration) {
@@ -90,12 +98,11 @@ public class Baguette {
     private Baguette nextBaguette = null;
 
     public void show() {
-        if(currentBaguette == null) {
+        if (currentBaguette == null) {
             currentBaguette = this;
             lastBaguette = this;
             doShow();
-        }
-        else{
+        } else {
             lastBaguette.nextBaguette = this;
             lastBaguette = this;
         }
@@ -103,6 +110,35 @@ public class Baguette {
 
     public void cancel() {
 
+    }
+
+    public Baguette enableUndo(final BaguetteListener baguetteListener) {
+        mVActionView.setVisibility(View.VISIBLE);
+        mVActionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doHide();
+                if (baguetteListener != null) {
+                    baguetteListener.onActionClicked();
+                }
+            }
+        });
+        return this;
+    }
+
+    public Baguette setAction(final Drawable drawable, final BaguetteListener baguetteListener) {
+        mVActionImageView.setImageDrawable(drawable);
+        mVActionView.setVisibility(View.VISIBLE);
+        mVActionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doHide();
+                if (baguetteListener != null) {
+                    baguetteListener.onActionClicked();
+                }
+            }
+        });
+        return this;
     }
 
     private int comuteDuration() {
@@ -114,8 +150,8 @@ public class Baguette {
     final static Handler mHandler = new Handler(Looper.getMainLooper());
 
     private void handleShow() {
-        if(mView != null && mContext != null && mContext instanceof Activity) {
-            ((ViewGroup)((Activity)mContext).getWindow().getDecorView()).addView(mView);
+        if (mView != null && mContext != null && mContext instanceof Activity) {
+            ((ViewGroup) ((Activity) mContext).getWindow().getDecorView()).addView(mView);
             mView.getViewTreeObserver().addOnDrawListener(new ViewTreeObserver.OnDrawListener() {
                 @Override
                 public void onDraw() {
@@ -154,7 +190,7 @@ public class Baguette {
     }
 
     private void doShow() {
-        Log.d(TAG,"doShow");
+        Log.d(TAG, "doShow");
         mHandler.post(mShow);
     }
 

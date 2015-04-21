@@ -1,17 +1,11 @@
-package com.tutosandroidfrance.wearsample;
+package com.github.florent37.baguette.sample;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.wearable.view.DotsPageIndicator;
-import android.support.wearable.view.GridViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.github.florent37.Baguette;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -25,7 +19,12 @@ public class MainActivity extends Activity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Baguette.makeText(MainActivity.this, "Test", Baguette.LENGTH_SHORT).show();
+                Baguette.makeText(MainActivity.this, "Test", Baguette.LENGTH_SHORT).enableUndo(new Baguette.BaguetteListener() {
+                    @Override
+                    public void onActionClicked() {
+                        Log.d(TAG, "undo");
+                    }
+                }).show();
             }
         });
 
