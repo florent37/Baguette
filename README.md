@@ -3,9 +3,7 @@ Baguette
 
 [![Build Status](https://travis-ci.org/florent37/Baguette.svg)](https://travis-ci.org/florent37/Baguette)
 
-Baguette is an Android Toast implementation adapted for SmartWatch
-
-WORK IN PROGRESS
+Baguette is an Android Toast implementation adapted for Android Wear
 
 ![alt sample](https://raw.githubusercontent.com/florent37/Baguette/master/wear/src/main/res/drawable/baguette_sample_2.png)
 
