@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.github.florent37.Baguette;
+import com.github.florent37.baguette.Baguette;
 
 public class MainActivity extends Activity {
 

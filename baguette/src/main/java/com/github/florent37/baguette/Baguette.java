@@ -1,4 +1,4 @@
-package com.github.florent37;
+package com.github.florent37.baguette;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
