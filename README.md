@@ -10,16 +10,7 @@ Baguette is an Android Toast implementation adapted for Android Wear
 Download
 --------
 
-In your root build.gradle add
-```groovy
-repositories {
-    maven {
-        url  "http://dl.bintray.com/florent37/maven"
-    }
-}
-```
-
-In your wear module [![Download](https://api.bintray.com/packages/florent37/maven/Baguette/images/download.svg)](https://bintray.com/florent37/maven/WearMenu/_latestVersion)
+In your wear module [![Download](https://api.bintray.com/packages/florent37/maven/Baguette/images/download.svg)](https://bintray.com/florent37/maven/Baguette/_latestVersion)
 ```groovy
 compile 'com.github.florent37:baguette:1.0.0@aar'
 ```
